@@ -8,7 +8,7 @@ function App() {
   let [backendVersion, setBackendVersion] = useState("v1")
   let [data, setData] = useState([])
 
-  let BACKEND_HOST = `http://backend-service-v2:80`
+  let BACKEND_HOST = process.env.REACT_APP_BACKEND_HOST
   console.log(BACKEND_HOST)
   useEffect(() => {
     axios.get(`${BACKEND_HOST}/posts`)
