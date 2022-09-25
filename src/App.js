@@ -8,8 +8,8 @@ function App() {
   let [backendVersion, setBackendVersion] = useState("v1")
   let [data, setData] = useState([])
 
-  let BACKEND_HOST = process.env.REACT_APP_BACKEND_HOST
-
+  let BACKEND_HOST = `http://backend-service-v2:80`
+  console.log(BACKEND_HOST)
   useEffect(() => {
     axios.get(`${BACKEND_HOST}/posts`)
       .then((_res) => {
@@ -25,7 +25,7 @@ function App() {
   function checkStatus() {
     axios.get(`${BACKEND_HOST}/status`)
       .then((_res) => {
-        if (_res.status == 200) {
+        if (_res.status === 200) {
           setStatus(true)
         }
       })
@@ -35,12 +35,12 @@ function App() {
   }
 
   return (
-    <section className="our-webcoderskull padding-lg" style={backendVersion == "v1" ? {backgroundColor:"lightgrey"} : {backgroundColor:"yellow"}}>
+    <section className="our-webcoderskull padding-lg" style={backendVersion === "v1" ? {backgroundColor:"lightgrey"} : {backgroundColor:"yellow"}}>
       <div className="container">
         <div className="row heading heading-icon">
           <h2 className='font-weight-bold black'>Welcome to Devops Hoodie Shop <span style={{color:"red"}}>({backendVersion})</span></h2>
           <button className="text-center text-small btn btn-danger" onClick={checkStatus}>Check backend api status </button>
-          <h4 className='alert alert danger border '> {status == true ? "Backend is up and running 🥰😍" : "Backend is not available, please help 😰😭😱"}</h4>
+          <h4 className='alert alert danger border '> {status === true ? "Backend is up and running 🥰😍" : "Backend is not available, please help 😰😭😱"}</h4>
         </div>
         <ul className="row">
           {data.map(item => (
