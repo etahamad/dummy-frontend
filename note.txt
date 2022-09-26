@@ -6,5 +6,5 @@ build the docker image then tag the images accordingly
 make sure the app is running correctly
 
 docker build --tag alsaheem/dummy-frontend . 
-docker run -p 3001:80 alsaheem/dummy-frontend
+docker run -p 3001:3000 alsaheem/dummy-frontend
 docker push alsaheem/dummy-frontend
