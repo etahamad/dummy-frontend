@@ -1,18 +1,12 @@
+FROM node:16-alpine AS build
 
-FROM node:16-alpine AS development
+WORKDIR /react-app
 
-ENV NODE_ENV development
-
-WORKDIR /app
-
-COPY package.json .
-
-COPY package-lock.json .
-
-RUN npm ci
-
+COPY package.json package-lock.json ./
+RUN npm install
 COPY . .
+RUN npm run build
 
-EXPOSE 3000
-
-CMD [ "npm", "start" ]
+FROM nginx:alpine
+COPY ./nginx.conf /etc/nginx/nginx.conf
+COPY --from=build /react-app/build /usr/share/nginx/html
